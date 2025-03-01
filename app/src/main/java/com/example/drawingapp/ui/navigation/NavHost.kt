@@ -1,5 +1,7 @@
 package com.example.drawingapp.ui.navigation
 
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -15,14 +17,20 @@ fun DisplayNav(
 ) {
     NavHost(
         navController = navController,
-        startDestination = "",
+        startDestination = Routes.Home.route,
         modifier = modifier
     ) {
         composable(route = Routes.Home.route) {
-            HomeScreen()
+            HomeScreen(
+                navController = navController,
+                modifier = Modifier.fillMaxSize()
+            )
         }
         composable(route = Routes.WordChainMainScreen.route) {
-            WordChainMainScreen()
+            WordChainMainScreen(
+                navController = navController,
+                modifier = Modifier.fillMaxSize()
+            )
         }
     }
 }
