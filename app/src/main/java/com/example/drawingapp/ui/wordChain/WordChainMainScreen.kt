@@ -54,7 +54,8 @@ fun WordChainMainScreen(
             } else {
                 DrawingListPager(
                     firstHiragana,
-                    allDrawingList
+                    allDrawingList,
+                    modifier = Modifier.fillMaxWidth().fillMaxHeight(0.5F)
                 )
             }
         }
@@ -136,8 +137,7 @@ fun DrawingListPager(
         if (page == 0) {
             Box(
                 contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .fillMaxSize()
+                modifier = Modifier.fillMaxWidth().fillMaxHeight(0.5F)
             ) {
                 Text(
                     firstHiragana,
