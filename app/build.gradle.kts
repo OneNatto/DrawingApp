@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -71,4 +72,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     //Navigation
     implementation(libs.androidx.navigation.compose)
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.10.0"))
 }
