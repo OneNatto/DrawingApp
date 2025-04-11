@@ -1,4 +1,4 @@
-package com.example.drawingapp.ui.wordChain
+package com.example.drawingapp.ui.wordChain.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

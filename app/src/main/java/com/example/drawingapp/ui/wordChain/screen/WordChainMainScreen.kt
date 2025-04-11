@@ -1,7 +1,5 @@
-package com.example.drawingapp.ui.wordChain
+package com.example.drawingapp.ui.wordChain.screen
 
-import android.app.Dialog
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -21,21 +19,19 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.AlertDialog
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -48,6 +44,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.drawingapp.ui.model.WordChainDrawing
+import com.example.drawingapp.ui.wordChain.viewmodel.WordChainMainViewModel
 
 @Composable
 fun WordChainMainScreen(
@@ -145,7 +142,7 @@ fun DrawingArea(
     ) {
         Card(
             modifier = Modifier
-                .fillMaxWidth(0.8F)
+                .fillMaxWidth(0.9F)
                 .fillMaxHeight(0.8F)
         ) {
             Canvas(
@@ -185,17 +182,52 @@ fun DrawingArea(
             }
         }
         Spacer(modifier = Modifier.height(20.dp))
-        Button(
-            onClick = {
-                viewModel.toggleIsDialogShow()
-            },
-            modifier = Modifier.fillMaxWidth(0.8F)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth(0.9F)
         ) {
-            Text(
-                "描きおわり",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start,
+                modifier = Modifier
+                    .fillMaxWidth(0.5F)
+            ) {
+                Button(
+                    onClick = viewModel::onStepBack,
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "",
+                        tint = Color.White,
+                        modifier = Modifier.size(16.dp)
+                    )
+                }
+                Spacer(modifier = Modifier.width(4.dp))
+                Button(
+                    onClick = viewModel::onClear
+                ) {
+                    Text(
+                        "クリア",
+                        fontSize = 15.sp
+                    )
+                }
+            }
+            Button(
+                onClick = {
+                    viewModel.toggleIsDialogShow()
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFFB6542)
+                ),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    "描きおわり",
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
         }
     }
 }
@@ -249,8 +281,8 @@ fun DrawingListPager(
                             contentAlignment = Alignment.Center,
                             modifier = Modifier
                                 .size(30.dp)
-                                .border(2.dp, Color(0xFFDE7A22),shape = RoundedCornerShape(10.dp))
-                                .background(Color(0xFFFFBB00),shape = RoundedCornerShape(10.dp))
+                                .border(2.dp, Color(0xFFDE7A22), shape = RoundedCornerShape(10.dp))
+                                .background(Color(0xFFFFBB00), shape = RoundedCornerShape(10.dp))
                         ) {
                             Text(
                                 "?",
@@ -263,9 +295,8 @@ fun DrawingListPager(
                 }
                 Canvas(
                     modifier = Modifier
-                        .fillMaxWidth(0.9F)
+                        .fillMaxSize(0.9F)
                         .weight(1F)
-                    // .border(BorderStroke(2.dp, Color.Blue))
                 ) {
                     if (drawingPathList.isNotEmpty()) {
                         drawingPathList.forEach { path ->
