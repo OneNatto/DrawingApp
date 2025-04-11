@@ -1,6 +1,7 @@
 package com.example.drawingapp.ui.wordChain
 
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.asAndroidPath
@@ -145,5 +146,20 @@ class WordChainMainViewModel : ViewModel() {
         subCollection.add(data)
             .addOnSuccessListener {} // 成功時の処理
             .addOnFailureListener {} // 失敗時の処理
+    }
+
+
+    fun onClear() {
+        _drawingList.value = emptyList()
+        _currentPath.value = Path()
+    }
+
+    @RequiresApi(35)
+    fun onStepBack() {
+        if (_drawingList.value.isNotEmpty()) {
+            val drawingList = _drawingList.value.toMutableList()
+            drawingList.removeLast()
+            _drawingList.value = drawingList
+        }
     }
 }
