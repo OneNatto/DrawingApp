@@ -2,25 +2,49 @@ package com.example.drawingapp.ui.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.drawingapp.ui.home.HomeScreen
-import com.example.drawingapp.ui.wordChain.screen.LoginScreen
+import com.example.drawingapp.ui.wordChain.screen.AuthScreen
 import com.example.drawingapp.ui.wordChain.screen.PastGameScreen
 import com.example.drawingapp.ui.wordChain.screen.WordChainMainScreen
 
 @Composable
 fun DisplayNav(
+    viewModel: NavHostViewModel = viewModel(),
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
+    val isLoggedIn by viewModel.isLoggedIn.collectAsState()
+    val startDestination = if(isLoggedIn) Routes.Home.route else Routes.AuthScreen.route
+
+    LaunchedEffect(isLoggedIn) {
+        if (isLoggedIn) {
+            navController.navigate(Routes.Home.route) {
+                popUpTo(Routes.AuthScreen.route) {
+                    inclusive = true
+                }
+            }
+        } else {
+            navController.navigate(Routes.AuthScreen.route) {
+                popUpTo(Routes.Home.route) {
+                    inclusive = true
+                }
+            }
+        }
+    }
+
     NavHost(
         navController = navController,
-        startDestination = Routes.AuthScreen.route,
+        startDestination = startDestination,
         modifier = modifier
     ) {
         composable(route = Routes.Home.route) {
@@ -30,7 +54,7 @@ fun DisplayNav(
             )
         }
         composable(route = Routes.AuthScreen.route) {
-            LoginScreen(
+            AuthScreen(
                 modifier = Modifier.fillMaxSize()
             )
         }

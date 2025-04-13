@@ -1,6 +1,5 @@
 package com.example.drawingapp.ui.wordChain.screen
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -24,7 +22,7 @@ import com.example.drawingapp.ui.wordChain.viewmodel.AuthMode
 import com.example.drawingapp.ui.wordChain.viewmodel.AuthViewModel
 
 @Composable
-fun LoginScreen(
+fun AuthScreen(
     viewModel: AuthViewModel = viewModel(),
     modifier: Modifier = Modifier
 ) {
