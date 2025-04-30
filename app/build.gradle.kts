@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
+    kotlin("plugin.serialization") version "2.1.10"
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -71,4 +74,10 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     //Navigation
     implementation(libs.androidx.navigation.compose)
+    //Serialization
+    implementation(libs.kotlinx.serialization.json)
+    //Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore)
+    implementation ("com.google.firebase:firebase-auth:22.3.1")
 }
