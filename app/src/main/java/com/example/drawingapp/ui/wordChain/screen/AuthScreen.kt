@@ -1,5 +1,6 @@
 package com.example.drawingapp.ui.wordChain.screen
 
+import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,10 +11,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,6 +32,19 @@ fun AuthScreen(
     val authMode = viewModel.authMode.collectAsState()
     val userId = viewModel.userId.collectAsState()
     val userPassword = viewModel.userPassword.collectAsState()
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        viewModel.sendEvent.collect {
+            val sendIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, "共有するテキスト")
+            }
+            val intent = Intent.createChooser(sendIntent, null)
+            context.startActivity(intent)
+        }
+    }
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -67,6 +83,15 @@ fun AuthScreen(
                 viewModel.switchAuthModel()
             }
         )
+        Button(
+            onClick = viewModel::sendIntent,
+            modifier = Modifier.fillMaxWidth(0.7F)
+        ) {
+            Text(
+                text = "共有"
+            )
+
+        }
 
     }
 }
