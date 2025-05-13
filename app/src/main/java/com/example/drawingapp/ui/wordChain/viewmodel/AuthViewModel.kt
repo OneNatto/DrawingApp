@@ -6,8 +6,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlin.math.tanh
@@ -28,6 +31,16 @@ class AuthViewModel : ViewModel() {
     // パスワード
     private val _userPassword = MutableStateFlow("")
     val userPassword: StateFlow<String> = _userPassword.asStateFlow()
+
+    // 共有のIntentを作成
+    private val _sendEvent = MutableSharedFlow<Unit>()
+    val sendEvent: SharedFlow<Unit> = _sendEvent.asSharedFlow()
+
+    fun sendIntent() {
+        viewModelScope.launch {
+            _sendEvent.emit(Unit)
+        }
+    }
 
     val auth = FirebaseAuth.getInstance()
 

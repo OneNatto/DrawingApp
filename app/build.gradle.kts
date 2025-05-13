@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.drawingapp"
-        minSdk = 34
+        minSdk = 29
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -79,5 +79,6 @@ dependencies {
     //Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore)
-    implementation ("com.google.firebase:firebase-auth:22.3.1")
+    implementation("com.google.firebase:firebase-auth:22.3.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 }
