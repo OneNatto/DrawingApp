@@ -103,7 +103,7 @@ fun HomeScreen(
         ) {
             Button(
                 onClick = {
-                    navController.navigate(Routes.WordChainMainScreen.route)
+                    navController.navigate(Routes.WaitingRoomScreen.route)
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFFB6542)

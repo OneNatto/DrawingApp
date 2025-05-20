@@ -15,6 +15,7 @@ import androidx.navigation.navArgument
 import com.example.drawingapp.ui.home.HomeScreen
 import com.example.drawingapp.ui.wordChain.screen.AuthScreen
 import com.example.drawingapp.ui.wordChain.screen.PastGameScreen
+import com.example.drawingapp.ui.wordChain.screen.WaitingRoomScreen
 import com.example.drawingapp.ui.wordChain.screen.WordChainMainScreen
 
 @Composable
@@ -55,6 +56,12 @@ fun DisplayNav(
         }
         composable(route = Routes.AuthScreen.route) {
             AuthScreen(
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+        composable(route = Routes.WaitingRoomScreen.route) {
+            WaitingRoomScreen(
+                navController = navController,
                 modifier = Modifier.fillMaxSize()
             )
         }
